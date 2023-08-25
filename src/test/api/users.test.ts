@@ -21,16 +21,11 @@ describe('fetchApiData', () => {
     });
 
     it('handles API error', async () => {
-        const errorMeassage = 'Network Error';
-        (axios.get as jest.Mock).mockRejectedValue(new Error(errorMeassage));
+        const errorMessage = 'Network Error';
+        (axios.get as jest.Mock).mockRejectedValue(new Error(errorMessage));
 
-        try {
-            await fetchApiData();
-        } catch (error) {
-            if (error instanceof Error) {
-                expect(error.message).toEqual(errorMeassage);
-            }
-        }
+        const response = await fetchApiData();
+        expect(response).toEqual(new Error(errorMessage));
     });
 
     it('calls axios.get with correct URL', async () => {
@@ -38,7 +33,7 @@ describe('fetchApiData', () => {
 
         await fetchApiData();
 
-        expect(axios.get).toHaveBeenCalledWith('https://jsonplaceholder.typicode.com/users');
+        expect(axios.get).toHaveBeenCalledWith(process.env.API_ENDPOINT);
     });
 
     it('calls axios.get with correct URL using spyOn', async () => {
@@ -46,7 +41,7 @@ describe('fetchApiData', () => {
 
         await fetchApiData();
 
-        expect(axiosGetSpy).toHaveBeenCalledWith('https://jsonplaceholder.typicode.com/users');
+        expect(axiosGetSpy).toHaveBeenCalledWith(process.env.API_ENDPOINT);
     });
 
     it('calls console.log with fetched data', async () => {
