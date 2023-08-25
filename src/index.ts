@@ -1,3 +1,4 @@
+require('dotenv').config();
 import fetchApiData from "./api/users";
 import { User } from "./types/users";
 

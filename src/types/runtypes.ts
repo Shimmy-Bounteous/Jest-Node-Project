@@ -1,4 +1,4 @@
-import { Number, String, Record } from 'runtypes';
+import { Number, String, Record, Array } from 'runtypes';
 
 const GeoRuntype = Record({
     lat: Number,
@@ -30,4 +30,6 @@ const UserRuntype = Record({
     company: CompanyRuntype,
 });
 
-export { UserRuntype };
+const UsersArrayRuntype = Array(UserRuntype);
+
+export { UserRuntype, UsersArrayRuntype };
